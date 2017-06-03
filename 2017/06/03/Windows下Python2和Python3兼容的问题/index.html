@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="python,solution,windows," />
 
 
 
@@ -90,15 +90,17 @@
 
 
 
-<meta name="description" content="扬帆，起航。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="HackingNow">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="在windows下有时候需要同时使用Python两个版本，直接安装两个版本，配置环境变量。 配置环境变量比如安装目录为d:\program files\python\，将下面路径加入环境变量中的path中。1234d:\program files\python\Python36\Scriptsd:\program files\python\Python36d:\program files\pyth">
+<meta name="keywords" content="python,solution,windows">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Windows下Python2和Python3兼容的问题">
+<meta property="og:url" content="http://yoursite.com/2017/06/03/Windows下Python2和Python3兼容的问题/index.html">
 <meta property="og:site_name" content="HackingNow">
-<meta property="og:description" content="扬帆，起航。">
+<meta property="og:description" content="在windows下有时候需要同时使用Python两个版本，直接安装两个版本，配置环境变量。 配置环境变量比如安装目录为d:\program files\python\，将下面路径加入环境变量中的path中。1234d:\program files\python\Python36\Scriptsd:\program files\python\Python36d:\program files\pyth">
+<meta property="og:updated_time" content="2017-06-02T08:17:52.660Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="HackingNow">
-<meta name="twitter:description" content="扬帆，起航。">
+<meta name="twitter:title" content="Windows下Python2和Python3兼容的问题">
+<meta name="twitter:description" content="在windows下有时候需要同时使用Python两个版本，直接安装两个版本，配置环境变量。 配置环境变量比如安装目录为d:\program files\python\，将下面路径加入环境变量中的path中。1234d:\program files\python\Python36\Scriptsd:\program files\python\Python36d:\program files\pyth">
 
 
 
@@ -126,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/06/03/Windows下Python2和Python3兼容的问题/"/>
 
 
 
 
 
-  <title>HackingNow</title>
+  <title>Windows下Python2和Python3兼容的问题 | HackingNow</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -168,9 +170,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-   page-home 
- ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -273,9 +273,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -301,9 +301,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/03/Windows下Python2和Python3兼容的问题/" itemprop="url">Windows下Python2和Python3兼容的问题</a></h1>
+          <h1 class="post-title" itemprop="name headline">Windows下Python2和Python3兼容的问题</h1>
         
 
         <div class="post-meta">
@@ -387,354 +385,83 @@
       
 
       
+        <p>在windows下有时候需要同时使用Python两个版本，直接安装两个版本，配置环境变量。</p>
+<h3 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h3><p>比如安装目录为d:\program files\python\，将下面路径加入环境变量中的path中。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">d:\program files\python\Python36\Scripts</div><div class="line">d:\program files\python\Python36</div><div class="line">d:\program files\python\Python27\Scripts</div><div class="line">d:\program files\python\Python27</div></pre></td></tr></table></figure></p>
+<h3 id="查看不同版本的python信息"><a href="#查看不同版本的python信息" class="headerlink" title="查看不同版本的python信息"></a>查看不同版本的python信息</h3><p>执行下面命令查看python3的版本。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ python3 --version</div><div class="line">Python 3.6.1</div></pre></td></tr></table></figure></p>
+<p>执行下面命令查看python2的版本。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ python2 --version</div><div class="line">Python 2.7.13</div></pre></td></tr></table></figure></p>
+<h3 id="使用不同版本的pip功能"><a href="#使用不同版本的pip功能" class="headerlink" title="使用不同版本的pip功能"></a>使用不同版本的pip功能</h3><p>调用Python2的pip。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ pip2 --version</div><div class="line">pip 9.0.1 from d:\program files\python\python27\lib\site-packages (python 2.7)</div></pre></td></tr></table></figure></p>
+<p>调用Python3的pip。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ pip3 --version</div><div class="line">pip 9.0.1 from d:\program files\python\python36\lib\site-packages (python 3.6)</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    <div>
+      
         
-          
-          在windows下有时候需要同时使用Python两个版本，直接安装两个版本，配置环境变量。
-配置环境变量比如安装目录为d:\program files\python\，将下面路径加入环境变量中的path中。1234d:\program files\python\Python36\Scriptsd:\
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/06/03/Windows下Python2和Python3兼容的问题/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+
+      
+    </div>
+
+    <div>
+      
         
+
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
-      
-    </div>
-
-    <div>
       
     </div>
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/02/Debian切换Python版本/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="C0c0a">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="HackingNow">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/02/Debian切换Python版本/" itemprop="url">Debian切换Python版本</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-02T14:27:27+08:00">
-                2017-06-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/python/" itemprop="url" rel="index">
-                    <span itemprop="name">python</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/python/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/python/" rel="tag"># python</a>
           
-
+            <a href="/tags/solution/" rel="tag"># solution</a>
           
-            
+            <a href="/tags/windows/" rel="tag"># windows</a>
           
-
-          
-          
-
-          
-
-          
-
-          
-		  
-		  
-
-			
-			
         </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
         
-          
-          在debian下使用Python时，有时候需要切换python版本，下面提供版本切换的方法。
-查看可用的python二进制文件执行下面命令查看可用的python二进制文件。12345$ ls /usr/bin/python*/usr/bin/python     /usr/bin/python2.7
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/06/02/Debian切换Python版本/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/02/Debian切换Python版本/" rel="next" title="Debian切换Python版本">
+                <i class="fa fa-chevron-left"></i> Debian切换Python版本
+              </a>
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
 
-    <div>
-      
-    </div>
+          <span class="post-nav-divider"></span>
 
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/01/使用pip安装时出现failed building wheel for xxx的解决方案/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="C0c0a">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="HackingNow">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/01/使用pip安装时出现failed building wheel for xxx的解决方案/" itemprop="url">使用pip安装时出现"failed building wheel for xxx"的解决方案</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+          <div class="post-nav-prev post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-01T10:18:21+08:00">
-                2017-06-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/python/" itemprop="url" rel="index">
-                    <span itemprop="name">python</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-		  
-		  
-
-			
-			
+          </div>
         </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-          在使用Python pip安装的时候，有时会出现”failed building wheel for xxx”的错误，可以尝试通过下面步骤解决。
-下载对应的.whl文件使用pip install “文件路径+whl文件名”安装文件比如缺少lxml文件，下载了lxml-3.4.4-cp34-none-
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/06/01/使用pip安装时出现failed building wheel for xxx的解决方案/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -742,6 +469,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -761,8 +492,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.jpg"
@@ -824,6 +564,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置环境变量"><span class="nav-number">1.</span> <span class="nav-text">配置环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看不同版本的python信息"><span class="nav-number">2.</span> <span class="nav-text">查看不同版本的python信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用不同版本的pip功能"><span class="nav-number">3.</span> <span class="nav-text">使用不同版本的pip功能</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -939,6 +695,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
 
   
 
