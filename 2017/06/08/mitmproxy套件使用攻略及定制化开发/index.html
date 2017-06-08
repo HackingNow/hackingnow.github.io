@@ -1,0 +1,947 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="python,开发,代理," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="mitmproxy是一款支持HTTP(S)的中间人代理工具。不同于Fiddler2，burpsuite等类似功能工具，mitmproxy可在终端下运行。mitmproxy使用Python开发，是辅助web开发&amp;amp;测试，移动端调试，渗透测试的工具。 工作原理介绍（以HTTPS为例）1.客户端发起一个到mitmproxy的连接，并且发出HTTP CONNECT请求，2.mitmproxy作出响应">
+<meta name="keywords" content="python,开发,代理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="转载--mitmproxy套件使用攻略及定制化开发">
+<meta property="og:url" content="http://yoursite.com/2017/06/08/mitmproxy套件使用攻略及定制化开发/index.html">
+<meta property="og:site_name" content="HackingNow">
+<meta property="og:description" content="mitmproxy是一款支持HTTP(S)的中间人代理工具。不同于Fiddler2，burpsuite等类似功能工具，mitmproxy可在终端下运行。mitmproxy使用Python开发，是辅助web开发&amp;amp;测试，移动端调试，渗透测试的工具。 工作原理介绍（以HTTPS为例）1.客户端发起一个到mitmproxy的连接，并且发出HTTP CONNECT请求，2.mitmproxy作出响应">
+<meta property="og:image" content="http://yoursite.com/2017/06/08/mitmproxy套件使用攻略及定制化开发/1.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/06/08/mitmproxy套件使用攻略及定制化开发/2.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/06/08/mitmproxy套件使用攻略及定制化开发/3.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/06/08/mitmproxy套件使用攻略及定制化开发/4.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/06/08/mitmproxy套件使用攻略及定制化开发/5.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/06/08/mitmproxy套件使用攻略及定制化开发/6.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/06/08/mitmproxy套件使用攻略及定制化开发/7.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/06/08/mitmproxy套件使用攻略及定制化开发/8.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/06/08/mitmproxy套件使用攻略及定制化开发/9.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/06/08/mitmproxy套件使用攻略及定制化开发/10.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/06/08/mitmproxy套件使用攻略及定制化开发/11.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/06/08/mitmproxy套件使用攻略及定制化开发/12.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/06/08/mitmproxy套件使用攻略及定制化开发/13.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/06/08/mitmproxy套件使用攻略及定制化开发/14.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/06/08/mitmproxy套件使用攻略及定制化开发/15.jpg">
+<meta property="og:updated_time" content="2017-06-08T10:19:25.241Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="转载--mitmproxy套件使用攻略及定制化开发">
+<meta name="twitter:description" content="mitmproxy是一款支持HTTP(S)的中间人代理工具。不同于Fiddler2，burpsuite等类似功能工具，mitmproxy可在终端下运行。mitmproxy使用Python开发，是辅助web开发&amp;amp;测试，移动端调试，渗透测试的工具。 工作原理介绍（以HTTPS为例）1.客户端发起一个到mitmproxy的连接，并且发出HTTP CONNECT请求，2.mitmproxy作出响应">
+<meta name="twitter:image" content="http://yoursite.com/2017/06/08/mitmproxy套件使用攻略及定制化开发/1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/06/08/mitmproxy套件使用攻略及定制化开发/"/>
+
+
+
+
+
+  <title>转载--mitmproxy套件使用攻略及定制化开发 | HackingNow</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?eb67662cb9800beb5e662437c37aae36";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">HackingNow</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">HackingNow</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/08/mitmproxy套件使用攻略及定制化开发/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="C0c0a">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HackingNow">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">转载--mitmproxy套件使用攻略及定制化开发</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-08T17:42:21+08:00">
+                2017-06-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+		  
+		  
+
+			
+			
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="/2017/06/08/mitmproxy套件使用攻略及定制化开发/1.jpg" alt="hehe"><br>mitmproxy是一款支持HTTP(S)的中间人代理工具。不同于Fiddler2，burpsuite等类似功能工具，mitmproxy可在终端下运行。mitmproxy使用Python开发，是辅助web开发&amp;测试，移动端调试，渗透测试的工具。</p>
+<h2 id="工作原理介绍（以HTTPS为例）"><a href="#工作原理介绍（以HTTPS为例）" class="headerlink" title="工作原理介绍（以HTTPS为例）"></a>工作原理介绍（以HTTPS为例）</h2><p>1.客户端发起一个到mitmproxy的连接，并且发出HTTP CONNECT请求，<br>2.mitmproxy作出响应(200)，模拟已经建立了CONNECT通信管道，<br>3.客户端确信它正在和远端服务器会话，然后启动SSL连接。在SSL连接中指明了它正在连接的主机名(SNI)，<br>4.mitmproxy连接服务器，然后使用客户端发出的SNI指示的主机名建立SSL连接，<br>5.服务器以匹配的SSL证书作出响应，这个SSL证书里包含生成的拦截证书所必须的通用名(CN)和服务器备用名(SAN)，<br>6.mitmproxy生成拦截证书，然后继续进行与第３步暂停的客户端SSL握手，<br>7.客户端通过已经建立的SSL连接发送请求，<br>8.mitmproxy通过第４步建立的SSL连接传递这个请求给服务器。</p>
+<p><img src="/2017/06/08/mitmproxy套件使用攻略及定制化开发/2.jpg" alt="https"></p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><ol>
+<li><p>设置系统\浏览器\终端等的代理地址和端口</p>
+</li>
+<li><p>浏览器或移动端安装mitmproxy提供的证书</p>
+</li>
+</ol>
+<p>官方提供的安装方式：<a href="http://mitmproxy.org/doc/certinstall.html" target="_blank" rel="external">http://mitmproxy.org/doc/certinstall.html</a></p>
+<h3 id="mitmproxy"><a href="#mitmproxy" class="headerlink" title="mitmproxy"></a>mitmproxy</h3><p>mitmproxy会提供一个在终端下的图形界面，具有修改请求和响应，流量重放等功能，具体操作方式有点vim的风格，参考请点这：</p>
+<p><img src="/2017/06/08/mitmproxy套件使用攻略及定制化开发/3.jpg" alt="mitmproxy"></p>
+<h3 id="mitmdump"><a href="#mitmdump" class="headerlink" title="mitmdump"></a>mitmdump</h3><p>mitmdump可设定规则保存或重放请求和响应，点我查看用法</p>
+<p>mitmdump的特点是支持inline脚本，由于拥有可以修改request和response中每一个细节的能力，批量测试，劫持等都可以轻松实现，下面是个篡改图片的例子：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">from libmproxy.protocol.http import decoded</div><div class="line"></div><div class="line"></div><div class="line">def response(context, flow):</div><div class="line">    <span class="keyword">if</span> flow.response.headers.get_first(<span class="string">"content-type"</span>, <span class="string">""</span>).startswith(<span class="string">"image"</span>):</div><div class="line">    	with decoded(flow.response):</div><div class="line">            try:</div><div class="line">            	img = cStringIO.StringIO(open(<span class="string">'freebuf.jpg'</span>, <span class="string">'rb'</span>).read())</div><div class="line">            	flow.response.content = img.getvalue()</div><div class="line">            	flow.response.headers[<span class="string">"content-type"</span>] = [<span class="string">"image/jpg"</span>]</div><div class="line">            except:</div><div class="line">                pass</div></pre></td></tr></table></figure>
+<p>判别header中是否存在image，如果有的话替换成指定图片。</p>
+<pre><code class="bash">mitmdump --script pic.py
+</code></pre>
+<p>效果如下：</p>
+<p><img src="/2017/06/08/mitmproxy套件使用攻略及定制化开发/4.jpg" alt="Screenshot from 2015-08-28 03^%49^%41.png"></p>
+<h3 id="libmproxy"><a href="#libmproxy" class="headerlink" title="libmproxy"></a>libmproxy</h3><p>libmproxy是mitmproxy的扩展api，新版本的libmproxy(笔者使用的：0.13 on Kali 2.0)与老版本有所差别，官方给出了几个样例，这里搜集和总结一些用法。</p>
+<p>简单的例子：</p>
+<pre><code class="bash"><span class="comment">#coding=utf-8</span>
+import os
+from libmproxy import flow, proxy
+from libmproxy.proxy.server import ProxyServer
+
+class MyMaster(flow.FlowMaster):
+    def run(self):
+        try:
+            flow.FlowMaster.run(self)
+        except KeyboardInterrupt:
+            self.shutdown()
+
+    def handle_request(self, f):
+        f = flow.FlowMaster.handle_request(self, f)
+        <span class="keyword">if</span> f:
+            <span class="built_in">print</span> f.request.url
+            f.reply()
+        <span class="built_in">return</span> f
+
+    def handle_response(self, f):
+        f = flow.FlowMaster.handle_response(self, f)
+        <span class="keyword">if</span> f:
+            <span class="built_in">print</span> f.request.url, f.response
+            f.reply()
+        <span class="built_in">return</span> f
+
+
+def test_start():
+    config = proxy.ProxyConfig(
+        port=8080,
+        <span class="comment"># use ~/.mitmproxy/mitmproxy-ca.pem as default CA file.</span>
+        cadir=<span class="string">"~/.mitmproxy/"</span>,
+    )
+    state = flow.State()
+    server = ProxyServer(config)
+    m = MyMaster(server, state)
+    m.run()
+
+test_start()
+</code></pre>
+<p>当这个脚本运行后，将会监听127.0.0.1:8080，并输出经过此代理的request的url和response的摘要，运行下面的脚本做个测试:</p>
+<pre><code class="bash"><span class="comment">#coidng=utf-8</span>
+import requests
+import gevent
+from gevent import monkey; monkey.patch_socket()
+class <span class="built_in">test</span>():
+    def task(self, url):
+        <span class="built_in">print</span> gevent.getcurrent(), url
+    resp = requests.get(url)
+        <span class="built_in">print</span> url, resp
+    def start(self):
+        url_list = [<span class="string">'http://www.baidu.com'</span>,
+                    <span class="string">'http://www.amazon.com'</span>,
+                    <span class="string">'http://www.freebuf.com'</span>,
+                    <span class="string">'http://www.google.com'</span>,
+                    <span class="string">'http://jd.com'</span>]
+    threads = [gevent.spawn(self.task, url) <span class="keyword">for</span> url <span class="keyword">in</span> url_list]
+    gevent.joinall(threads)
+get_test = <span class="built_in">test</span>()
+get_test.start()
+</code></pre>
+<p>效果：<br><img src="/2017/06/08/mitmproxy套件使用攻略及定制化开发/5.jpg" alt="截图"><br><img src="/2017/06/08/mitmproxy套件使用攻略及定制化开发/6.jpg" alt="截图"></p>
+<p>由于libmproxy/flow.py 提供了处理request和response的能力，这样使用libmproxy提供的扩展可以方便的判别，修改数据。下面的代码可用来修改headers，伪造随机User-Aent(可用于扫描器，爬虫等)：</p>
+<pre><code class="bash"><span class="keyword">if</span> f.request.headers[<span class="string">'User-Agent'</span>]:
+    UAlist = [<span class="string">"Mozilla/5.0 (X11; U; Linux i686; en-GB; rv:1.8.1.6) Gecko/20070914 Firefox/2.0.0.7"</span>,
+          <span class="string">"Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US; rv:1.8.1.7) Gecko/20070914 Firefox/2.0.0.7"</span>,
+          <span class="string">"Mozilla/5.0 (Windows; U; Windows NT 6.0; en) AppleWebKit/522.15.5 (KHTML, like Gecko) Version/3.0.3 Safari/522.15.5"</span>,
+          <span class="string">"Mozilla/5.0 (Macintosh; U; PPC Mac OS X; en) AppleWebKit/103u (KHTML, like Gecko) safari/100"</span>,
+          <span class="string">"Opera/9.23 (X11; Linux x86_64; U; en)"</span>,
+          <span class="string">"Opera/9.23 (Windows NT 5.1; U; en)"</span>,
+          <span class="string">"Mozilla/4.0 (compatible; MSIE 6.1; Windows XP)"</span>,
+          <span class="string">"Mozilla/5.0 (Windows; U; MSIE 7.0; Windows NT 6.0)"</span>,
+          <span class="string">"Mozilla/5.0(iPad; U; CPU iPhone OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Version/4.0.4 Mobile/7B314 Safari/531.21.10"</span>]
+f.request.headers[<span class="string">'User-Agent'</span>] = [random.choice(UAlist)]
+</code></pre>
+<p><img src="/2017/06/08/mitmproxy套件使用攻略及定制化开发/7.jpg" alt="curlheader.jpg"></p>
+<p>使用libmproxy的扩展脚本会独立运行，这时libmproxy/controller.py会在循环监测是否有请求：<br><img src="/2017/06/08/mitmproxy套件使用攻略及定制化开发/8.jpg" alt="run.jpg"><br><img src="/2017/06/08/mitmproxy套件使用攻略及定制化开发/9.jpg" alt="tickinflow.jpg"><br><img src="/2017/06/08/mitmproxy套件使用攻略及定制化开发/10.jpg" alt="while.jpg"></p>
+<p>当收到请求后，通过调试Queue中的数据看出proxy对请求和响应的处理流程：<br><img src="/2017/06/08/mitmproxy套件使用攻略及定制化开发/11.jpg" alt="run.jpg"><br><img src="/2017/06/08/mitmproxy套件使用攻略及定制化开发/12.jpg" alt="tickinflow.jpg"><br><img src="/2017/06/08/mitmproxy套件使用攻略及定制化开发/13.jpg" alt="while.jpg"><br><img src="/2017/06/08/mitmproxy套件使用攻略及定制化开发/14.jpg" alt="run.jpg"><br><img src="/2017/06/08/mitmproxy套件使用攻略及定制化开发/15.jpg" alt="tickinflow.jpg"></p>
+<h2 id="脑洞：利用libmproxy实现代理式扫描器"><a href="#脑洞：利用libmproxy实现代理式扫描器" class="headerlink" title="脑洞：利用libmproxy实现代理式扫描器"></a>脑洞：利用libmproxy实现代理式扫描器</h2><p>可以分为3个模块:</p>
+<p>1，利用libmproxy代理抓到的resquest和response，判别后进存入数据库;<br>2，定时从数据库读取数据，对数据进行预处理，调用扫描模块(可参考FreeBuf《基于代理的Web扫描器的实现<br>》文章；<br>3，扫描模块（代理式扫描器的核心）;</p>
+<p>下面的代码会将请求和响应中的一些数据存入MongoDB（结构供参考，更细节的部分正在开发中）。</p>
+<pre><code class="bash"><span class="comment">#coding=utf-8</span>
+import os
+import pymongo
+import time
+from libmproxy import flow, proxy
+from libmproxy.proxy.server import ProxyServer
+from libmproxy.flow import FlowWriter
+
+
+class MyMaster(flow.FlowMaster):
+    def run(self):
+        self.db_init()
+        try:
+            flow.FlowMaster.run(self)
+        except KeyboardInterrupt:
+            self.shutdown()
+
+    def handle_request(self, f):
+        f = flow.FlowMaster.handle_request(self, f)
+        <span class="keyword">if</span> f:
+            <span class="built_in">print</span> f.request.url
+            f.reply()
+        <span class="built_in">return</span> f
+
+    def handle_response(self, f):
+        f = flow.FlowMaster.handle_response(self, f)
+        <span class="keyword">if</span> f:
+            self.db_insert(f)
+            f.reply()
+        <span class="built_in">return</span> f
+
+    def db_init(self):
+        self.client = pymongo.MongoClient(<span class="string">'127.0.0.1'</span>, 27017)
+        self.db = self.client[<span class="string">'scan'</span>]
+        self.coll = self.db[<span class="string">'scan_res'</span>]
+        <span class="built_in">return</span>
+
+    def db_insert(self, flow):
+        insert_dict = {}
+        <span class="keyword">if</span> flow:
+            insert_dict = {
+                <span class="string">'time'</span>: time.time(),
+                <span class="string">'request'</span>: {
+                    <span class="string">'url'</span>: flow.request.url,
+                    <span class="string">'scheme'</span>: flow.request.scheme,
+                    <span class="string">'path'</span>: flow.request.path,
+                    <span class="string">'method'</span>: flow.request.method
+                },
+                <span class="string">'response'</span>: {
+                    <span class="string">'msg'</span>: flow.response.msg,
+                    <span class="string">'code'</span>: flow.response.code,
+                    <span class="string">'header'</span>: dict(flow.response.headers),
+                    <span class="string">'content'</span>: flow.response.content
+                }
+            }
+            self.coll.insert(insert_dict)
+        <span class="keyword">else</span>:
+            <span class="built_in">return</span>
+
+def test_start():
+    config = proxy.ProxyConfig(
+        port=8080,
+        <span class="comment"># use ~/.mitmproxy/mitmproxy-ca.pem as default CA file.</span>
+        cadir=<span class="string">"~/.mitmproxy/"</span>,
+    )
+    state = flow.State()
+    server = ProxyServer(config)
+    m = MyMaster(server, state)
+    m.run()
+
+test_start()
+</code></pre>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>老版本kali升级mitmproxy可能会产生某些库不可用的问题，并且libmproxy仍存在着些许不足（扩展性不够强），但mitmproxy仍为一个功能强大的工具，更多功能尚待研究，代理式扫描器已作为私人项目正在逐步开发。</p>
+<h2 id="参考来源"><a href="#参考来源" class="headerlink" title="参考来源"></a>参考来源</h2><p><a href="http://sigint.ru/writeups/2014/04/13/plaidctf-2014-writeups/" target="_blank" rel="external">http://sigint.ru/writeups/2014/04/13/plaidctf-2014-writeups/</a></p>
+<p><a href="http://acsweb.ucsd.edu/~abuss/backdoor2014.html" target="_blank" rel="external">http://acsweb.ucsd.edu/~abuss/backdoor2014.html</a></p>
+<p><a href="http://lilydjwg.is-programmer.com/tag/mitmproxy" target="_blank" rel="external">http://lilydjwg.is-programmer.com/tag/mitmproxy</a></p>
+<p><a href="https://gist.github.com/yeukhon/8573005" target="_blank" rel="external">https://gist.github.com/yeukhon/8573005</a></p>
+<ul>
+<li>作者：漏洞盒子安全团队gaba，转载请注明来自FreeBuf黑客与极客（FreeBuf.COM）<br><a href="https://www.vulbox.com/news/detail-28" target="_blank" rel="external">链接</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+            <a href="/tags/开发/" rel="tag"># 开发</a>
+          
+            <a href="/tags/代理/" rel="tag"># 代理</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/05/dpkg被中断必须手工运行sudodpkgconfigurea解决此问题/" rel="next" title="dpkg 被中断，您必须手工运行 sudo dpkg --configure -a 解决此问题">
+                <i class="fa fa-chevron-left"></i> dpkg 被中断，您必须手工运行 sudo dpkg --configure -a 解决此问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="C0c0a" />
+          <p class="site-author-name" itemprop="name">C0c0a</p>
+           
+              <p class="site-description motion-element" itemprop="description">扬帆，起航。</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#工作原理介绍（以HTTPS为例）"><span class="nav-number">1.</span> <span class="nav-text">工作原理介绍（以HTTPS为例）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置"><span class="nav-number">2.</span> <span class="nav-text">配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mitmproxy"><span class="nav-number">2.1.</span> <span class="nav-text">mitmproxy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mitmdump"><span class="nav-number">2.2.</span> <span class="nav-text">mitmdump</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#libmproxy"><span class="nav-number">2.3.</span> <span class="nav-text">libmproxy</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#脑洞：利用libmproxy实现代理式扫描器"><span class="nav-number">3.</span> <span class="nav-text">脑洞：利用libmproxy实现代理式扫描器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后记"><span class="nav-number">4.</span> <span class="nav-text">后记</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考来源"><span class="nav-number">5.</span> <span class="nav-text">参考来源</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">C0c0a</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+
+
+</body>
+</html>
